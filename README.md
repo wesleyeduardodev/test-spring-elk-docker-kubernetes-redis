@@ -1,166 +1,128 @@
-# Verificar a versão do kubectl
-kubectl version --client
+# 🚀 Projeto Spring Boot + ELK + Kubernetes com Minikube no WSL
 
-# Verificar a versão do minikube
-minikube version
+Este projeto descreve todos os passos para configurar uma aplicação Spring Boot integrada com Elasticsearch, Logstash e Kibana (ELK), usando Minikube com driver Docker no WSL (Ubuntu), sem depender do Docker Desktop.
 
-# Iniciar o cluster Kubernetes usando Docker
-minikube start --driver=docker
+---
+
+## ✅ Etapas de Instalação
+
+### 1. Atualizar o Ubuntu e instalar dependências:
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y docker.io
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+### 2. Instalar `kubectl`
+```bash
+KUBECTL_VERSION=$(curl -sL https://dl.k8s.io/release/stable.txt)
+curl -LO https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl
+chmod +x kubectl
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+```
+
+### 3. Instalar `minikube`
+```bash
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+```
+
+---
+
+## 🚀 Inicializando o Cluster Minikube
+
+### Iniciar com 2 CPUs e 4GB RAM
+```bash
 minikube start --driver=docker --cpus=2 --memory=4096
+```
 
-# Verificar se o nó do cluster está funcionando
-kubectl get nodes
-
-# Verificar os pods (depois de aplicar seus manifests)
-kubectl get pods -A
-
-# Verificar serviços
-kubectl get svc -A
-
-# Verificar contextos (opcional)
-kubectl config get-contexts
-
-
-#Aplica todos os manifests válidos do diretório atual;
-kubectl apply -f .
-
-#Diretório do meu projeto
-cd "/mnt/c/Users/Wesley Eduardo/Documents/Repositórios/crud-usuario-elk"
-
-#Para acompanhar em tempo real o status das pods subindo no Kubernetes, use:
-kubectl get pods -w
-
-# Deletar tudo
-kubectl delete -f .
-
-Se quiser zerar geral e começar com um Minikube limpo:
-minikube delete
-
-
-
-
-
-----O QUE EU TINHA ANTES
-
-
-## API
-http://localhost:8080
-
-## Kibana
-http://localhost:5601
-
-## Elasticsearch
-http://localhost:9200
-
-## Logstash API
-http://localhost:9600
-
-
-## Comandos K8S
-
-# cria todos os recursos do Kubernetes — namespace, pods, serviços, tudo!
-kubectl apply -f k8s/
-
-# Verifica os pods
-kubectl get pods -n crud-elk
-
-
-#  Verifica os serviços
-kubectl get svc -n crud-elk
-
-
-Verifica se tá rodando
-kubectl get nodes
-
-
-
-Instalar o Chocolatey (caso queira)
-Set-ExecutionPolicy Bypass -Scope Process -Force; `
-[System.Net.ServicePointManager]::SecurityProtocol = `
-[System.Net.ServicePointManager]::SecurityProtocol -bor 3072; `
-iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-
-
-instalar minikube
-choco install minikube -y
-
-- saber versão do minikube
-- minikube version
-
-
-kubectl logs -f logstash-5669bb9494-f9pkw
-
-kubectl logs -f spring-elk-app-59c5ffbbdd-s9ndj
-
-
-abri uma porta
-minikube service spring-elk-app --url
-
-curl http://127.0.0.1:40481/api/usuarios
-
-# Verifica se está instalado
-minikube version
-
-# Inicia o cluster com Docker
-minikube start --driver=docker
-
-# Redireciona Docker local pro Minikube
-eval $(minikube docker-env)
-
-# Builda a imagem da API
-docker build -t crud-usuario-elk-api ./app
-
-# Aplica os YAMLs
-kubectl apply -f k8s/
-
-# Verifica pods
-kubectl get pods -n crud-elk
-
-# Verifica e acessa serviços
-minikube service api-usuario -n crud-elk --url
-minikube service kibana -n crud-elk --url
-
-
-Isso apaga o cluster anterior.
-minikube delete
-
-
-kubectl get pods -n crud-elk
-
-
-
-kubectl logs -n crud-elk -f postgres-c5cccb496-jvqzh
-
-kubectl logs -n crud-elk -f elasticsearch-6ffb765796-bd7s6
-
-kubectl logs -n crud-elk -f kibana-5dfff5b7fb-wjrx9
-
-kubectl logs -n crud-elk -f api-usuario-77bdcbc547-wprh8
-
-
-kubectl apply -f ingress.yaml
-
-
-Remove todos os deployments, services e ingress do namespace:
-
-kubectl delete all --all -n crud-elk
-
+### Habilitar Ingress Controller
+```bash
 minikube addons enable ingress
-Habilite o Ingress no Minikube (apenas 1x):
-kubectl apply -f ingress.yaml
+```
 
-Remove também ingress, configmaps e outros objetos:
+### Ativar túnel para expor Ingress em localhost
+```bash
+minikube tunnel
+```
+> Esse comando precisa ficar rodando em um terminal separado.
 
-kubectl delete ingress --all -n crud-elk
-kubectl delete configmap --all -n crud-elk
+---
 
+## 📦 Build da aplicação
+```bash
+eval $(minikube docker-env)
+docker build -t wesleyeduardodev/crud-usuario-elk-api ./app
+```
 
-Verifica:
+---
 
-kubectl get pods -n crud-elk
-kubectl get svc -n crud-elk
-kubectl get ingress -n crud-elk
+## 📂 Aplicação de Manifests
+```bash
+cd k8s/
+kubectl apply -f .
+```
 
+---
 
-curl http://192.168.49.2/api/api/usuarios
+## 🔍 Verificações úteis
+```bash
+kubectl get nodes
+kubectl get pods -w
+kubectl get svc
+kubectl get ingress
+```
 
+---
+
+## 🧹 Resetar completamente o cluster (opcional)
+```bash
+minikube delete
+minikube start --driver=docker --cpus=2 --memory=4096
+kubectl delete -f .
+```
+
+---
+
+## 🔧 Logs
+```bash
+kubectl logs -f -l app=spring-elk-app
+kubectl logs -f -l app=logstash
+kubectl logs -f -l app=elasticsearch
+```
+
+---
+
+## 🌐 Acesso via Ingress (com minikube tunnel ativo)
+
+- API: http://localhost/api/usuarios
+
+### Teste via terminal:
+```bash
+curl http://localhost/api/usuarios
+```
+
+### Teste via Postman:
+```
+GET http://localhost/api/usuarios
+POST http://localhost/api/usuarios
+Content-Type: application/json
+
+{
+  "nome": "Wesley",
+  "email": "wesley@exemplo.com",
+  "documento": "12345678900"
+}
+```
+
+---
+
+## ✅ Observações
+
+- Sempre mantenha o `minikube tunnel` rodando ao usar Ingress com driver Docker.
+- A porta muda em NodePort, mas Ingress com `localhost` é fixo.
+
+---
+
+Com isso, sua aplicação Spring Boot integrada ao stack ELK está acessível e orquestrada via Kubernetes com Minikube! 🎉
