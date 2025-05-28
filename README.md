@@ -103,6 +103,23 @@ kubectl logs -f -l app=elasticsearch
 curl http://localhost/api/usuarios
 ```
 
+## Abrir uma porta para usar
+minikube service spring-elk-app --url
+curl http://127.0.0.1:40481/api/usuarios
+
+
+## API Spring Boot
+minikube service spring-elk-app --url
+
+## Kibana
+minikube service kibana --url
+
+## Elasticsearch (API de consulta e status)
+minikube service elasticsearch --url
+
+## Elasticsearch (API de consulta e status)
+minikube service logstash --url
+
 ### Teste via Postman:
 ```
 GET http://localhost/api/usuarios
