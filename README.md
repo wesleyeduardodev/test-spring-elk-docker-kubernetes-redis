@@ -1,3 +1,48 @@
+# Verificar a versão do kubectl
+kubectl version --client
+
+# Verificar a versão do minikube
+minikube version
+
+# Iniciar o cluster Kubernetes usando Docker
+minikube start --driver=docker
+minikube start --driver=docker --cpus=2 --memory=4096
+
+# Verificar se o nó do cluster está funcionando
+kubectl get nodes
+
+# Verificar os pods (depois de aplicar seus manifests)
+kubectl get pods -A
+
+# Verificar serviços
+kubectl get svc -A
+
+# Verificar contextos (opcional)
+kubectl config get-contexts
+
+
+#Aplica todos os manifests válidos do diretório atual;
+kubectl apply -f .
+
+#Diretório do meu projeto
+cd "/mnt/c/Users/Wesley Eduardo/Documents/Repositórios/crud-usuario-elk"
+
+#Para acompanhar em tempo real o status das pods subindo no Kubernetes, use:
+kubectl get pods -w
+
+# Deletar tudo
+kubectl delete -f .
+
+Se quiser zerar geral e começar com um Minikube limpo:
+minikube delete
+
+
+
+
+
+----O QUE EU TINHA ANTES
+
+
 ## API
 http://localhost:8080
 
@@ -37,14 +82,21 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocola
 
 
 instalar minikube
-choco install minikube -y 
+choco install minikube -y
 
 - saber versão do minikube
-- minikube version 
+- minikube version
 
 
+kubectl logs -f logstash-5669bb9494-f9pkw
+
+kubectl logs -f spring-elk-app-59c5ffbbdd-s9ndj
 
 
+abri uma porta
+minikube service spring-elk-app --url
+
+curl http://127.0.0.1:40481/api/usuarios
 
 # Verifica se está instalado
 minikube version
@@ -109,3 +161,4 @@ kubectl get ingress -n crud-elk
 
 
 curl http://192.168.49.2/api/api/usuarios
+
