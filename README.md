@@ -145,7 +145,9 @@ Remove todos os deployments, services e ingress do namespace:
 
 kubectl delete all --all -n crud-elk
 
-
+minikube addons enable ingress
+Habilite o Ingress no Minikube (apenas 1x):
+kubectl apply -f ingress.yaml
 
 Remove também ingress, configmaps e outros objetos:
 
