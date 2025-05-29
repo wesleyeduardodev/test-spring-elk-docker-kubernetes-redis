@@ -23,4 +23,4 @@ spring:
 api:
   football:
     base-url: https://v3.football.api-sports.io
-    api-key: 2f07966a38fa3b59c4f444636b31cad4
+    api-key: ${API_FOOTBALL_KEY}
