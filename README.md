@@ -137,6 +137,13 @@ FLUSHALL
 ## Parar containers docker
 docker stop $(docker ps -q)
 
+
+## Ver logs da API - nome do container
+docker logs -f api-usuario
+
+## remover imagens
+docker rmi -f $(docker images -aq)
+
 ### Teste via Postman:
 ```
 GET http://localhost/api/usuarios

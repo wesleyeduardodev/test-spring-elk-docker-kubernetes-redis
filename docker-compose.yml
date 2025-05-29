@@ -62,7 +62,8 @@ services:
 
   api:
     build: ./app
-    container_name: api-usuario
+    container_name: api-teams
+    image: wesley/api-teams:latest
     ports:
       - "8080:8080"
     environment:
