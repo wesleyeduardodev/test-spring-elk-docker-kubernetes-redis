@@ -11,8 +11,8 @@ public class TeamController {
 
     private final TeamService teamService;
 
-    @GetMapping("/{code}")
-    public TeamResponse findOrFetchTeam(@PathVariable String code) {
-        return teamService.findOrFetchAndSave(code);
+    @GetMapping("/{apiId}")
+    public TeamResponse findOrFetchTeam(@PathVariable Long apiId) {
+        return teamService.findOrFetchAndSave(apiId);
     }
 }

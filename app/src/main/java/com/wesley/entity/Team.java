@@ -14,11 +14,14 @@ public class Team {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "api_id", nullable = false, unique = true)
+    private Long apiId;
 
     @Column(name = "code", unique = true)
     private String code;
+
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "country")
     private String country;

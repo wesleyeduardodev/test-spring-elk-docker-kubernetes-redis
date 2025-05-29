@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class TeamData {
-    private TeamResponse team;
+    private TeamResponseClient team;
     private Venue venue;
 }

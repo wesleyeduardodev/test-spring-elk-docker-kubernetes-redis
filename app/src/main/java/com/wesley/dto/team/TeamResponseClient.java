@@ -4,9 +4,8 @@ import lombok.Data;
 
 @Data
 @Builder
-public class TeamResponse {
+public class TeamResponseClient {
     private Long id;
-    private Long apiId;
     private String name;
     private String code;
     private String country;
