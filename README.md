@@ -137,6 +137,11 @@ FLUSHALL
 ## Parar containers docker
 docker stop $(docker ps -q)
 
+## Parar todos os containers em execução:
+docker stop $(docker ps -aq)
+
+Remover todos os containers (parados e em execução):
+docker rm $(docker ps -aq)
 
 ## Ver logs da API - nome do container
 docker logs -f api-usuario
