@@ -1,5 +1,19 @@
 # 🚀 Projeto Spring Boot + ELK + Kubernetes com Minikube no WSL
 
+Abaixo usar quando pela ide ou docker
+
+## API
+http://localhost:8080
+
+## Kibana
+http://localhost:5601
+
+## Elasticsearch
+http://localhost:9200
+
+## Logstash API
+http://localhost:9600
+
 Este projeto descreve todos os passos para configurar uma aplicação Spring Boot integrada com Elasticsearch, Logstash e Kibana (ELK), usando Minikube com driver Docker no WSL (Ubuntu), sem depender do Docker Desktop.
 
 ---
@@ -143,6 +157,9 @@ docker stop $(docker ps -aq)
 ## Remover todos os containers (parados e em execução):
 docker rm $(docker ps -aq)
 
+## Para container
+docker stop api-teams
+
 ## Forçar remover containers
 docker rm -f $(docker ps -aq)
 
@@ -151,9 +168,25 @@ docker volume prune -f
 
 ## Ver logs da API - nome do container
 docker logs -f api-teams
+docker logs -f logstash
+
+## Remova o volume antigo para forçar criação limpa:
+docker-compose down -v
+
+## Verificar se o banco foi criado
+docker exec -it postgres psql -U postgres -l
+
+## SUbir um determiado container
+docker start api-teams
 
 ## remover imagens
 docker rmi -f $(docker images -aq)
+
+## Apagar uma imagem em especifico
+docker rmi api-teams
+
+## Subir gerando imagem de novo
+docker compose up --build -d
 
 ## verificar status ate com falhas
 docker ps -a
