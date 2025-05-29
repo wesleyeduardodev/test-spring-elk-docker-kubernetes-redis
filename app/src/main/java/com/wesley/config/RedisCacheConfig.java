@@ -19,7 +19,6 @@ public class RedisCacheConfig {
 
     private static final int TEAM_API_ID_EXPIRATION_MINUTES = 10;
     private static final int DEFAULT_EXPIRATION_MINUTES = 10;
-    private static final String CACHE_PREFIX = "cobranca::";
 
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
@@ -36,7 +35,6 @@ public class RedisCacheConfig {
 
     private RedisCacheConfiguration defaultConfig(Duration ttl) {
         return RedisCacheConfiguration.defaultCacheConfig()
-                .prefixCacheNameWith(CACHE_PREFIX)
                 .entryTtl(ttl)
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));

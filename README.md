@@ -121,6 +121,19 @@ minikube service elasticsearch --url
 ## Elasticsearch (API de consulta e status)
 minikube service logstash --url
 
+## ver chaves no redis
+docker exec -it redis-api-football redis-cli
+
+## Ver as chaves do redis
+KEYS *
+
+## Ver o valor de uma chave
+GET "team::33"
+
+## Limpar chaves valor
+GET "team::33"
+FLUSHALL
+
 ### Teste via Postman:
 ```
 GET http://localhost/api/usuarios

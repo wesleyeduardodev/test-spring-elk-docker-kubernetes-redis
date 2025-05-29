@@ -3,10 +3,24 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/usuarios
+    url: jdbc:postgresql://localhost:5432/api-football
     username: postgres
-    password: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+api:
+  football:
+    base-url: https://v3.football.api-sports.io
+    api-key: 2f07966a38fa3b59c4f444636b31cad4

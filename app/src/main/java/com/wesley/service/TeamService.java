@@ -9,7 +9,6 @@ import com.wesley.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -24,10 +23,9 @@ public class TeamService {
 
     public TeamResponse findOrFetchAndSave(Long apiId) {
         log.info("Iniciando busca do time com código '{}'", apiId);
-        Optional<Team> existingTeam = teamCacheService.findTeam(apiId);
-        if (existingTeam.isPresent()) {
-            log.info("[Cache HIT] Time encontrado no cache/banco: {}", existingTeam.get().getName());
-            return TeamMapper.toDTO(existingTeam.get());
+        TeamResponse teamResponse = teamCacheService.findTeam(apiId);
+        if (teamResponse != null) {
+            return teamResponse;
         } else {
             return fetchAndSaveFromApi(apiId);
         }
