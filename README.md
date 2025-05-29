@@ -140,8 +140,14 @@ docker stop $(docker ps -q)
 ## Parar todos os containers em execução:
 docker stop $(docker ps -aq)
 
-Remover todos os containers (parados e em execução):
+## Remover todos os containers (parados e em execução):
 docker rm $(docker ps -aq)
+
+## Forçar remover containers
+docker rm -f $(docker ps -aq)
+
+## Remover volumes
+docker volume prune -f
 
 ## Ver logs da API - nome do container
 docker logs -f api-teams
