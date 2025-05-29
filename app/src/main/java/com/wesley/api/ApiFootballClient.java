@@ -1,7 +1,7 @@
 package com.wesley.api;
 import com.wesley.config.ApiFootballConfig;
-import com.wesley.dto.TeamApiResponse;
-import com.wesley.dto.TeamResponse;
+import com.wesley.dto.team.TeamApiResponse;
+import com.wesley.dto.team.TeamResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;

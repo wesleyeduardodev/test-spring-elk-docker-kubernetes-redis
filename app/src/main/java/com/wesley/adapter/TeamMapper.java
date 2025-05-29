@@ -1,6 +1,6 @@
 package com.wesley.adapter;
 
-import com.wesley.dto.TeamResponse;
+import com.wesley.dto.team.TeamResponse;
 import com.wesley.entity.Team;
 import lombok.Builder;
 import lombok.Data;

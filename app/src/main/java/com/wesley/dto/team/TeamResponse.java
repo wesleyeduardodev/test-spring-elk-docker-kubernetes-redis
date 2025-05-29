@@ -1,4 +1,4 @@
-package com.wesley.dto;
+package com.wesley.dto.team;
 import lombok.Builder;
 import lombok.Data;
 

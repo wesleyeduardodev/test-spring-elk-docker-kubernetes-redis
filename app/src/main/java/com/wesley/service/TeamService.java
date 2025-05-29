@@ -1,7 +1,7 @@
 package com.wesley.service;
 import com.wesley.adapter.TeamMapper;
 import com.wesley.api.ApiFootballClient;
-import com.wesley.dto.TeamResponse;
+import com.wesley.dto.team.TeamResponse;
 import com.wesley.entity.Team;
 import com.wesley.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;

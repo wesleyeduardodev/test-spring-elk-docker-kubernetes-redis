@@ -1,5 +1,5 @@
 package com.wesley.controller;
-import com.wesley.dto.TeamResponse;
+import com.wesley.dto.team.TeamResponse;
 import com.wesley.service.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
