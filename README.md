@@ -79,6 +79,7 @@ kubectl get ingress
 ## 🧹 Resetar completamente o cluster (opcional)
 ```bash
 minikube delete
+minikube stop
 minikube start --driver=docker --cpus=2 --memory=4096
 kubectl delete -f .
 ```
@@ -143,3 +144,9 @@ Content-Type: application/json
 ---
 
 Com isso, sua aplicação Spring Boot integrada ao stack ELK está acessível e orquestrada via Kubernetes com Minikube! 🎉
+
+
+TODO
+- Primeiro ver se já tem a informaçã na minha base 
+- Se já tiver so recupera, se não vai na api do ApiFootball para atualizadr..
+- 
