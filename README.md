@@ -144,10 +144,13 @@ Remover todos os containers (parados e em execução):
 docker rm $(docker ps -aq)
 
 ## Ver logs da API - nome do container
-docker logs -f api-usuario
+docker logs -f api-teams
 
 ## remover imagens
 docker rmi -f $(docker images -aq)
+
+## verificar status ate com falhas
+docker ps -a
 
 ### Teste via Postman:
 ```
