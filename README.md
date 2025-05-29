@@ -131,8 +131,11 @@ KEYS *
 GET "team::33"
 
 ## Limpar chaves valor
-GET "team::33"
 FLUSHALL
+
+
+## Parar containers docker
+docker stop $(docker ps -q)
 
 ### Teste via Postman:
 ```
