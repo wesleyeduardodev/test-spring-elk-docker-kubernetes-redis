@@ -16,7 +16,7 @@ public class TeamCacheService {
 
     private final TeamRepository repository;
 
-    @Cacheable(value = "team", key = "#apiId")
+    @Cacheable(value = "teams", key = "#apiId")
     public TeamResponse findTeam(Long apiId) {
 
         log.info("[Cache MISS] Buscando time com ID externo '{}' no banco", apiId);

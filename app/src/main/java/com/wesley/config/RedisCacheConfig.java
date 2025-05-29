@@ -17,27 +17,30 @@ import java.util.Map;
 @EnableCaching
 public class RedisCacheConfig {
 
-    private static final int TEAM_API_ID_EXPIRATION_MINUTES = 10;
-    private static final int DEFAULT_EXPIRATION_MINUTES = 10;
+    private static final int TEAM_CACHE_TTL_MINUTES = 10;
+
+    private static final int DEFAULT_TTL_MINUTES = 10;
 
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
 
         Map<String, RedisCacheConfiguration> cacheConfigurations = new HashMap<>();
 
-        cacheConfigurations.put("apiId", defaultConfig(Duration.ofMinutes(TEAM_API_ID_EXPIRATION_MINUTES)));
+        cacheConfigurations.put("teams", createCacheConfig(Duration.ofMinutes(TEAM_CACHE_TTL_MINUTES)));
 
         return RedisCacheManager.builder(connectionFactory)
-                .cacheDefaults(defaultConfig(Duration.ofMinutes(DEFAULT_EXPIRATION_MINUTES)))
+                .cacheDefaults(createCacheConfig(Duration.ofMinutes(DEFAULT_TTL_MINUTES)))
                 .withInitialCacheConfigurations(cacheConfigurations)
                 .build();
     }
 
-    private RedisCacheConfiguration defaultConfig(Duration ttl) {
+    private RedisCacheConfiguration createCacheConfig(Duration ttl) {
         return RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(ttl)
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
+                .serializeKeysWith(
+                        RedisSerializationContext.SerializationPair.fromSerializer(new StringRedisSerializer()))
+                .serializeValuesWith(
+                        RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
     }
 
     @Bean
