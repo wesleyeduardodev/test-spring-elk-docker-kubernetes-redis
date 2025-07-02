@@ -1,6 +1,6 @@
 # 🚀 Projeto Spring Boot + ELK + Kubernetes com Minikube no WSL
 
-Abaixo usar quando pela ide ou docker
+Abaixo usar quando pela ide ou Docker
 
 ## API
 http://localhost:8080
